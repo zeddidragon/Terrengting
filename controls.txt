@@ -1,0 +1,5 @@
+left mouse button - move spotlight
+right mouse button - move pointlight
+
+1 - change first texture
+2 - change other texture
