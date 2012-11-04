@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B4CBFF4F-C7CC-4342-8C50-FA7398BB8EB9}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Planetarium</RootNamespace>
+    <ProjectName>Terrengting</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>lib;include;</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="directionallight.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="cube.h" />
+    <ClInclude Include="encapsulationnode.h" />
+    <ClInclude Include="eulernode.h" />
+    <ClInclude Include="globalcontrols.h" />
+    <ClInclude Include="heightmappedplane.h" />
+    <ClInclude Include="keyboardcontrols.h" />
+    <ClInclude Include="light.h" />
+    <ClInclude Include="lightnode.h" />
+    <ClInclude Include="lodepng.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="material.h" />
+    <ClInclude Include="mousecontrols.h" />
+    <ClInclude Include="modelnode.h" />
+    <ClInclude Include="node.h" />
+    <ClInclude Include="mousenode.h" />
+    <ClInclude Include="plane.h" />
+    <ClInclude Include="pointlight.h" />
+    <ClInclude Include="scene.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="sphere.h" />
+    <ClInclude Include="sphericalnode.h" />
+    <ClInclude Include="spotlight.h" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="textureset.h" />
+    <ClInclude Include="textureswitcher.h" />
+    <ClInclude Include="vertex.h" />
+    <ClInclude Include="window.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="model.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cube.cpp" />
+    <ClCompile Include="directionallight.cpp" />
+    <ClCompile Include="encapsulationnode.cpp" />
+    <ClCompile Include="eulernode.cpp" />
+    <ClCompile Include="globalcontrols.cpp" />
+    <ClCompile Include="heightmappedplane.cpp" />
+    <ClCompile Include="keyboardcontrols.cpp" />
+    <ClCompile Include="light.cpp" />
+    <ClCompile Include="lightnode.cpp" />
+    <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="material.cpp" />
+    <ClCompile Include="mousenode.cpp" />
+    <ClCompile Include="node.cpp" />
+    <ClCompile Include="plane.cpp" />
+    <ClCompile Include="pointlight.cpp" />
+    <ClCompile Include="scene.cpp" />
+    <ClCompile Include="shader.cpp" />
+    <ClCompile Include="sphere.cpp" />
+    <ClCompile Include="sphericalnode.cpp" />
+    <ClCompile Include="spotlight.cpp" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="textureset.cpp" />
+    <ClCompile Include="textureswitcher.cpp" />
+    <ClCompile Include="window.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="model.cpp" />
+    <ClCompile Include="modelnode.cpp" />
+    <ClCompile Include="mousecontrols.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TexturedPhong.frag.glsl" />
+    <None Include="TexturedPhong.vert.glsl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,55 @@
+﻿Build started 25.10.2012 13:27:18.
+     1>Project "D:\Visual Studio\Skolearbeid\5\TeksturOgLys\Planetarium\Planetarium.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\TeksturOgLys.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         d:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Ilib /Iinclude /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         d:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Visual Studio\Skolearbeid\5\TeksturOgLys\Debug\TeksturOgLys.exe" /INCREMENTAL /NOLOGO glew32.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\TeksturOgLys.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\Visual Studio\Skolearbeid\5\TeksturOgLys\Debug\TeksturOgLys.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Visual Studio\Skolearbeid\5\TeksturOgLys\Debug\TeksturOgLys.lib" /MACHINE:X86 Debug\TeksturOgLys.exe.embed.manifest.res
+         Debug\camera.obj
+         Debug\cube.obj
+         Debug\directionallight.obj
+         Debug\encapsulationnode.obj
+         Debug\eulernode.obj
+         Debug\globalcontrols.obj
+         Debug\heightmappedplane.obj
+         Debug\keyboardcontrols.obj
+         Debug\light.obj
+         Debug\lightnode.obj
+         Debug\lodepng.obj
+         Debug\material.obj
+         Debug\mousenode.obj
+         Debug\node.obj
+         Debug\plane.obj
+         Debug\pointlight.obj
+         Debug\scene.obj
+         Debug\shader.obj
+         Debug\sphere.obj
+         Debug\sphericalnode.obj
+         Debug\spotlight.obj
+         Debug\texture.obj
+         Debug\textureset.obj
+         Debug\textureswitcher.obj
+         Debug\window.obj
+         Debug\player.obj
+         Debug\main.obj
+         Debug\model.obj
+         Debug\modelnode.obj
+         Debug\mousecontrols.obj
+       Manifest:
+         c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\TeksturOgLys.exe.embed.manifest" /manifest Debug\TeksturOgLys.exe.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         Planetarium.vcxproj -> D:\Visual Studio\Skolearbeid\5\TeksturOgLys\Debug\TeksturOgLys.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\TeksturOgLys.unsuccessfulbuild".
+         Touching "Debug\TeksturOgLys.lastbuildstate".
+     1>Done Building Project "D:\Visual Studio\Skolearbeid\5\TeksturOgLys\Planetarium\Planetarium.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.27
