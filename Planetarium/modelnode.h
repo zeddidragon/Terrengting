@@ -7,12 +7,12 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
-#include "node.h"
+#include "orientationnode.h"
 #include "model.h"
 #include "material.h"
 #include "textureset.h"
 
-class ModelNode : public Node {
+class ModelNode : public OrientationNode {
 public:
 	ModelNode(Model* model, Material* material, TextureSet* textures);
 	virtual ~ModelNode();
@@ -28,16 +28,14 @@ public:
 	void AddChild(Node* child);
 
 	float Size;
-	vec3 OrientationAxis;
-	float Orientation, OrientationSpeed;
+
+	float PitchSpeed, YawSpeed, RollSpeed;
 
 protected:
 	Model* _model;
 	Material* _material;
 	TextureSet* _textures;
 	TextureSet* _normalMaps;
-
-	void ConstrainAngle(float& angle);
 };
 
 #endif

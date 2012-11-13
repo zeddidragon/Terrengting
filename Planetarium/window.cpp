@@ -57,7 +57,6 @@ void Window::InitializeGlStuff(void){
 
 	fprintf(stdout, "INFO: OpenGL Version: %s\n", glGetString(GL_VERSION));
 
-	glGetError();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	glEnable(GL_DEPTH_TEST);
@@ -167,6 +166,7 @@ void Window::UpdateTitle(int value){
 
 
 void Window::ExitOnGLError(const char* codeblock){
+	/*
 	const GLenum errorValue = glGetError();
 
 	if (errorValue != GL_NO_ERROR){
@@ -180,4 +180,5 @@ void Window::ExitOnGLError(const char* codeblock){
 		system("pause");
 		exit(EXIT_FAILURE);
 	}
+	*/
 }

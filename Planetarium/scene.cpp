@@ -1,4 +1,7 @@
 #include "scene.h"
+#include "pointlight.h"
+
+auto stocklight = std::vector<Light*>();
 
 void Scene::Update(float secondsPassed){
 	for (unsigned int i = 0; i < _nodes.size(); ++i){
@@ -8,6 +11,15 @@ void Scene::Update(float secondsPassed){
 
 void Scene::Render(Shader* shader, const mat4& viewMatrix){
 	GLint lightCountLocation = shader->GetUniformLocation("LightCount");
+	glUniform1i(lightCountLocation, 0);
+
+	mat4 orientationMatrix = mat4(mat3(viewMatrix));
+	orientationMatrix[3][3] = 1.0f;
+
+	glDisable(GL_DEPTH_TEST);
+	_skybox->Render(shader, &_lights, orientationMatrix, mat4(1.0f));
+	glEnable(GL_DEPTH_TEST);
+
 	glUniform1i(lightCountLocation, _lights.size());
 	for (unsigned int i = 0; i < _nodes.size(); ++i){
 		_nodes.at(i)->Render(shader, &_lights, viewMatrix, mat4(1.0f));
@@ -57,4 +69,12 @@ int Scene::AddNode(Node* node){
 
 Node* Scene::GetNode(int index){
 	return _nodes.at(index);
+}
+
+void Scene::SetSkybox(Node* node){
+	_skybox = node;
+}
+
+Node* Scene::GetSkybox(void){
+	return _skybox;
 }

@@ -7,6 +7,7 @@
 #include "scene.h"
 
 #include "cube.h"
+#include "skybox.h"
 #include "plane.h"	
 #include "sphere.h"
 #include "heightmappedplane.h"
@@ -16,9 +17,11 @@
 #include "lightnode.h"
 #include "mousenode.h"
 #include "textureswitcher.h"
+#include "cameranode.h"
+#include "freeflightnode.h"
 
 #include "spotlight.h"
-#include "player.h"
+#include "directionallight.h"
 
 #include "textureset.h"
 #include "globalcontrols.h"

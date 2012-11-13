@@ -1,6 +1,5 @@
-#include <glm\gtc\matrix_transform.hpp>
-
 #include "camera.h"
+#include "matrixmath.h"
 
 Camera::Camera(int width, int height){
 	_position = vec4(0.0f, 0.0f, 0.0f, 1.0f);
@@ -52,33 +51,10 @@ void Camera::LookAt(vec4 target){
 	_yaw = -glm::atan(direction.x, direction.z);
 }
 
-// http://planning.cs.uiuc.edu/node102.html
-// Note that the page is refering to pitch as rotation about the y-axis,
-// yaw as rotation about the z-axis and roll as rotation about the x-axis.
-//
-// These aren't necessarily wrong definitions, but they do not fit with my
-// coordinate system where z = forward, y = up and x = sideways.
 mat4 Camera::GetViewMatrix(void){
-	mat4 rollMatrix = mat4(1.0f);
-	rollMatrix[0][0] = cos(_roll);
-	rollMatrix[1][0] = -sin(_roll);
-	rollMatrix[0][1] = sin(_roll);
-	rollMatrix[1][1] = cos(_roll);
-
-	mat4 yawMatrix = mat4(1.0f);
-	yawMatrix[0][0] = cos(_yaw);
-	yawMatrix[2][0] = sin(_yaw);
-	yawMatrix[0][2] = -sin(_yaw);
-	yawMatrix[2][2] = cos(_yaw);
-
-	mat4 pitchMatrix = mat4(1.0f);
-	pitchMatrix[1][1] = cos(_pitch);
-	pitchMatrix[2][1] = -sin(_pitch);
-	pitchMatrix[1][2] = sin(_pitch);
-	pitchMatrix[2][2] = cos(_pitch);
-
+	mat4 orientationMatrix = MatrixMath::OrientationMatrix(_pitch, _yaw, _roll);
 	mat4 translationMatrix = mat4(1.0f);
 	translationMatrix[3] = _position;
 
-	return rollMatrix * pitchMatrix * yawMatrix * translationMatrix;
+	return orientationMatrix * translationMatrix;
 }

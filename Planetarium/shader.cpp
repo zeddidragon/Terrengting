@@ -62,7 +62,6 @@ Shader::~Shader(void){
 	glDeleteProgram(_id);
 	// GL is bitching about an invalid operation after I call glDeleteProgram.
 	// Everything's fine, though, so I just call glGetError() to clear the error buffer.
-	glGetError();
 }
 
 void Shader::Attach(GLuint shaderId){

@@ -123,9 +123,6 @@
     <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>Header Files\Input</Filter>
-    </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -148,6 +145,24 @@
       <Filter>Header Files\Nodes</Filter>
     </ClInclude>
     <ClInclude Include="heightmappedplane.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="cameranode.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="orientationnode.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="matrixmath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="freeflightnode.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="billboard.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
   </ItemGroup>
@@ -238,6 +253,24 @@
     </ClCompile>
     <ClCompile Include="node.cpp">
       <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="cameranode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="orientationnode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="matrixmath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="skybox.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="FreeFlightNode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="billboard.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

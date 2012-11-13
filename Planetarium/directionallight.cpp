@@ -10,6 +10,6 @@ void DirectionalLight::Bind(Shader* shader, Material* material, unsigned int ind
 	GLint directionLocation = shader->GetUniformLocation("LightDirections") + index;
 	GLint typeLocation = shader->GetUniformLocation("LightTypes") + index;
 
-	glUniform4fv(directionLocation, 1, value_ptr(Direction));
+	glUniform3fv(directionLocation, 1, value_ptr(Direction));
 	glUniform1i(typeLocation, ZD_LightType_Directional);
 }

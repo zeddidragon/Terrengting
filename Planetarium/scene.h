@@ -21,6 +21,8 @@ public:
 	Texture* GetTexture(int index);
 	int AddNode(Node* node);
 	Node* GetNode(int index);
+	void SetSkybox(Node* node);
+	Node* GetSkybox(void);
 
 private:
 	std::vector<Material*> _materials;
@@ -28,6 +30,7 @@ private:
 	std::vector<Texture*> _textures;
 	std::vector<Node*> _nodes;
 	std::vector<Light*> _lights;
+	Node* _skybox;
 };
 
 #endif

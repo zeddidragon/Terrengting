@@ -12,8 +12,7 @@ vector<MouseControls*> mouseControls;
 int main(int argc, char* argv[]){
 	GlobalWindow.Initialize(argc, argv);
 	AssignFunctions();
-	Scene* scene = CreateScene();
-	GlobalWindow.MainScene = scene;
+	GlobalWindow.MainScene = CreateScene();
 
 	glutMainLoop();
 
@@ -40,10 +39,10 @@ void AssignFunctions(){
 
 
 Scene* CreateScene(void){
-	Scene* scene = new Scene();
+	auto scene = new Scene();
 
 	//Initiate materials
-	Material* sunMaterial = new Material(
+	auto sunMaterial = new Material(
 		vec4(0.0f, 0.0f, 0.0f, 0.0f),
 		vec4(0.0f, 0.0f, 0.0f, 0.0f),
 		vec4(0.0f, 0.0f, 0.0f, 0.0f),
@@ -52,7 +51,16 @@ Scene* CreateScene(void){
 	);
 	scene->AddMaterial(sunMaterial);
 
-	Material* earthMaterial = new Material(
+	auto skyboxMaterial = new Material(
+		vec4(0.0f, 0.0f, 0.0f, 0.0f),
+		vec4(0.0f, 0.0f, 0.0f, 0.0f),
+		vec4(0.0f, 0.0f, 0.0f, 0.0f),
+		vec4(1.0f, 1.0f, 1.0f, 1.0f),
+		1
+	);
+	scene->AddMaterial(skyboxMaterial);
+
+	auto earthMaterial = new Material(
 		vec4(0.04f, 0.04f, 0.2f, 1.0f),
 		vec4(0.1f, 0.5f, 0.3f, 1.0f),
 		vec4(0.5f, 0.5f, 0.5f, 1.0f),
@@ -61,7 +69,7 @@ Scene* CreateScene(void){
 	);
 	scene->AddMaterial(earthMaterial);
 
-	Material* moonMaterial = new Material(
+	auto moonMaterial = new Material(
 		vec4(0.1f, 0.1f, 0.1f, 1.0f),
 		vec4(0.5f, 0.5f, 0.5f, 1.0f),
 		vec4(0.0f, 0.0f, 0.0f, 1.0f),
@@ -70,7 +78,7 @@ Scene* CreateScene(void){
 	);
 	scene->AddMaterial(moonMaterial);
 
-	Material* brickMaterial = new Material(
+	auto brickMaterial = new Material(
 		vec4(-0.3f, -0.3f, -0.3f, 1.0f),
 		vec4(1.5f, 1.5f, 1.5f, 1.0f),
 		vec4(1.6f, 1.6f, 1.6f, 1.0f),
@@ -79,7 +87,7 @@ Scene* CreateScene(void){
 	);
 	scene->AddMaterial(earthMaterial);
 
-	Material* metalMaterial = new Material(
+	auto metalMaterial = new Material(
 		vec4(0.2f, 0.2f, 0.2f, 1.0f),
 		vec4(0.2f, 0.2f, 0.2f, 1.0f),
 		vec4(1.0f, 1.0f, 1.0f, 1.0f),
@@ -89,58 +97,65 @@ Scene* CreateScene(void){
 	scene->AddMaterial(metalMaterial);
 
 	// Initiate Textures
-	Texture* mudBrickTexture = new Texture("Textures/AlternatingMudbrick-ColorMap.png");
+	auto mudBrickTexture = new Texture("Textures/AlternatingMudbrick-ColorMap.png");
 	scene->AddTexture(mudBrickTexture);
-	Texture* mudBrickNormals = new Texture("Textures/AlternatingMudbrick-NormalMap.png");
+	auto mudBrickNormals = new Texture("Textures/AlternatingMudbrick-NormalMap.png");
 	scene->AddTexture(mudBrickNormals);
 
-	Texture* crackedBrickTexture = new Texture("Textures/CrackedAlternatingBricks-ColorMap.png");
+	auto crackedBrickTexture = new Texture("Textures/CrackedAlternatingBricks-ColorMap.png");
 	scene->AddTexture(crackedBrickTexture);
-	Texture* crackedBrickNormals = new Texture("Textures/CrackedAlternatingBricks-NormalMap.png");
+	auto crackedBrickNormals = new Texture("Textures/CrackedAlternatingBricks-NormalMap.png");
 	scene->AddTexture(crackedBrickNormals);
 
-	Texture* sandTexture = new Texture("Textures/Sand_1_Diffuse.png");
+	auto sandTexture = new Texture("Textures/Sand_1_Diffuse.png");
 	scene->AddTexture(sandTexture);
-	Texture* sandNormals = new Texture("Textures/Sand_1_Normal.png");
+	auto sandNormals = new Texture("Textures/Sand_1_Normal.png");
 	scene->AddTexture(sandNormals);
 
-	Texture* heightMap = new Texture("Textures/terrain-heightmap.png");
-	//Texture* heightMap = new Texture("Textures/heightmap.png");
-	//Texture* heightMap = new Texture("Textures/z.png");
+	auto heightMap = new Texture("Textures/terrain-heightmap.png");
+
+	auto skyboxTexture = new Texture("Textures/skybox_texture.png");
+	//auto heightMap = new Texture("Textures/heightmap.png");
+	//auto heightMap = new Texture("Textures/z.png");
 	scene->AddTexture(heightMap);
 
 	// Initiate Models
-	/*
-	Model* cube = new Cube();
+	auto cube = new Cube();
 	scene->AddModel(cube);
-	*/
-	Model* sphere = new Sphere(24);
+
+	auto skybox = new Skybox();
+	scene->AddModel(skybox);
+
+	auto sphere = new Sphere(24);
 	scene->AddModel(sphere);
 	
-	Model* plane = new Plane(2.0f, 2.0f, 64, 64);
+	auto plane = new Plane(2.0f, 2.0f, 64, 64);
 	scene->AddModel(plane);
 
-	Model* heightMapPlane = new HeightMappedPlane(2.0f, 2.0f, 5.0f, 64, 64, heightMap);
+	auto heightMapPlane = new HeightMappedPlane(2.0f, 2.0f, 5.0f, 64, 64, heightMap);
 
 	// Initiate TextureSets
-	TextureSet* brickBlend = new TextureSet();
+	auto brickBlend = new TextureSet();
 	brickBlend->Add(mudBrickTexture, 2.0f);
 	brickBlend->Add(crackedBrickTexture, 2.0f);
 
-	TextureSet* blankTextureSet = new TextureSet();
+	auto blankTextureSet = new TextureSet();
 
-	TextureSet* brickBlendNormals = new TextureSet();
+	auto brickBlendNormals = new TextureSet();
 	brickBlendNormals->Add(mudBrickNormals, 2.0f);
 	brickBlendNormals->Add(crackedBrickNormals, 2.0f);
 
-	TextureSet* smallBricks = new TextureSet();
+	auto smallBricks = new TextureSet();
 	smallBricks->Add(crackedBrickTexture, 0.25f);
-	TextureSet* smallBrickNormals = new TextureSet();
+	auto smallBrickNormals = new TextureSet();
 	smallBrickNormals->Add(crackedBrickNormals, 0.25f);
 
+	auto skyboxSet = new TextureSet();
+	skyboxSet->Add(skyboxTexture, 1.0f);
+
 	// Initiate Nodes
-	//EulerNode* ground = new EulerNode(plane, brickMaterial, brickBlend);
-	EulerNode* ground = new EulerNode(heightMapPlane, brickMaterial, brickBlend);
+	//auto ground = new EulerNode(plane, brickMaterial, brickBlend);
+	auto ground = new EulerNode(heightMapPlane, brickMaterial, brickBlend);
 	ground->Position = vec3(0.0f, -10.0f, 0.0f);
 	ground->SetNormalMaps(brickBlendNormals);
 	
@@ -150,15 +165,15 @@ Scene* CreateScene(void){
 	textureSwitcher->AddTextures(sandTexture, sandNormals);
 	scene->AddNode(textureSwitcher);
 	
-	EulerNode* orb = new EulerNode(sphere, metalMaterial, blankTextureSet);
-	//EulerNode* orb = new EulerNode(sphere, metalMaterial, smallBricks);
+	auto orb = new EulerNode(sphere, metalMaterial, blankTextureSet);
+	//auto orb = new EulerNode(skybox, metalMaterial, blankTextureSet);
 	orb->Position = vec3(0.0f, 5.0f, 0.0f);
 	orb->SetNormalMaps(blankTextureSet);
-	//orb->SetNormalMaps(smallBrickNormals);
 	orb->Size = 5;
 	ground->AddChild(orb);
 	
 	// Initiate Lights
+	/*
 	PointLight* pointLight = new PointLight();
 	SpotLight* spotLight = new SpotLight();
 	spotLight->Ambient = vec4(0.3f, 0.3f, 0.3f, 1.0);
@@ -170,30 +185,45 @@ Scene* CreateScene(void){
 	scene->AddLight(pointLight);
 	scene->AddLight(spotLight);
 
-	EulerNode* spotLightModelNode = new EulerNode(sphere, sunMaterial, blankTextureSet);
+	auto spotLightModelNode = new EulerNode(sphere, sunMaterial, blankTextureSet);
 	spotLightModelNode->Position = vec3(50.0f, 100.0f, 50.0f);
 	spotLightModelNode->SetNormalMaps(blankTextureSet);
 	spotLightModelNode->Position = vec3(spotLight->Position);
 	scene->AddNode(spotLightModelNode);
 
-	MouseNode* spotLightMover = new MouseNode(spotLightModelNode, GLUT_LEFT_BUTTON, true);
-	LightNode* spotLightNode = new LightNode(spotLight, spotLightMover);
+	auto spotLightMover = new MouseNode(spotLightModelNode, GLUT_LEFT_BUTTON, true);
+	auto spotLightNode = new LightNode(spotLight, spotLightMover);
 	spotLightMover->SetPosition(vec3(5.0f, 5.0f, 5.0f));
 	scene->AddNode(spotLightNode);
 
-	EulerNode* pointLightModelNode = new EulerNode(sphere, sunMaterial, blankTextureSet);
+	auto pointLightModelNode = new EulerNode(sphere, sunMaterial, blankTextureSet);
 	pointLightModelNode->Position = vec3(50.0f, 50.0f, 50.0f);
 	pointLightModelNode->SetNormalMaps(blankTextureSet);
 	pointLightModelNode->Position = vec3(pointLight->Position);
 	scene->AddNode(pointLightModelNode);
 
-	MouseNode* pointLightMover = new MouseNode(pointLightModelNode, GLUT_RIGHT_BUTTON, false);
-	LightNode* pointLightNode = new LightNode(pointLight, pointLightMover);
+	auto pointLightMover = new MouseNode(pointLightModelNode, GLUT_RIGHT_BUTTON, false);
+	auto pointLightNode = new LightNode(pointLight, pointLightMover);
 	pointLightMover->SetPosition(vec3(0.0f, 5.0f, 0.0f));
 	scene->AddNode(pointLightNode);
+	*/
+	
+	auto sunlight = new DirectionalLight();
+	sunlight->Direction = glm::normalize(vec3(1.0f, -1.0f, 1.0f));
+	scene->AddLight(sunlight);
+	
 
-	Node* globalControls = new GlobalControls();
+	auto globalControls = new GlobalControls();
 	scene->AddNode(globalControls);
+
+	auto skyboxNode = new EulerNode(skybox, skyboxMaterial, skyboxSet);
+	skyboxNode->SetNormalMaps(blankTextureSet);
+	skyboxNode->Size = 10.0f;
+	scene->SetSkybox(skyboxNode);
+
+	auto flightNode = new FreeFlightNode();
+	auto cameraNode = new CameraNode(flightNode, GlobalWindow.Viewer);
+	scene->AddNode(cameraNode);
 
 	return scene;
 }
