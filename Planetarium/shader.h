@@ -13,7 +13,7 @@ public:
 	void Use(void);
 	static void Unuse(void);
 	void Link(void);
-	GLuint GetUniformLocation(const char* uniformVariable);
+	GLint GetUniformLocation(const char* uniformVariable);
 
 	float* Shader::GetUniform(const char* uniformVariable);
 protected:

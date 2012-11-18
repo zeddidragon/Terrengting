@@ -46,7 +46,6 @@ void Window::InitializeShader(void){
 
 void Window::InitializeGlStuff(void){
 	glewExperimental = GL_TRUE;
-
 	GLenum glewInitResult = glewInit();
 
 	if (glewInitResult != GLEW_OK){
@@ -67,6 +66,10 @@ void Window::InitializeGlStuff(void){
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 	ExitOnGLError("set OpenGL culling options");
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	ExitOnGLError("set OpenGL blending options");
 }
 
 

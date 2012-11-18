@@ -71,14 +71,22 @@ void ModelNode::Render(Shader* shader, const vector<Light*>* lights, const mat4&
 	for (unsigned int i = 0; i < lights->size(); ++i){
 		lights->at(i)->Bind(shader, _material, i, viewMatrix);
 	}
+	GLint emittedLocation = shader->GetUniformLocation("MaterialEmitted");
+	glUniform4fv(emittedLocation, 1, glm::value_ptr(_material->Emitted));
 	
 	_textures->Bind(shader);
-	if (_normalMaps != 0)
+	if (_normalMaps){
 		_normalMaps->BindNormalMap(shader, _textures->Size());
+	} else {
+		GLint countLocation = shader->GetUniformLocation("NormalMapCount");
+		glUniform1i(countLocation, 0);
+	}
 
 	_model->Draw();
 	_textures->Unbind();
-	_normalMaps->UnbindNormalMap(_textures->Size());
+	if (_normalMaps){
+		_normalMaps->UnbindNormalMap(_textures->Size());
+	}
 }
 
 

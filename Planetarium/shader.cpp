@@ -80,7 +80,7 @@ void Shader::Link(void){
 	glLinkProgram(_id); //Link hovedprogrammet til grafikkortet
 }
 
-GLuint Shader::GetUniformLocation(const char* uniformVariable){
+GLint Shader::GetUniformLocation(const char* uniformVariable){
 	return glGetUniformLocation(_id, uniformVariable);
 }
 

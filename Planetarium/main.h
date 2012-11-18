@@ -11,6 +11,7 @@
 #include "plane.h"	
 #include "sphere.h"
 #include "heightmappedplane.h"
+#include "billboard.h"
 
 #include "sphericalnode.h"
 #include "eulernode.h"

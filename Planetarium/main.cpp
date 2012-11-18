@@ -42,82 +42,67 @@ Scene* CreateScene(void){
 	auto scene = new Scene();
 
 	//Initiate materials
-	auto sunMaterial = new Material(
-		vec4(0.0f, 0.0f, 0.0f, 0.0f),
-		vec4(0.0f, 0.0f, 0.0f, 0.0f),
-		vec4(0.0f, 0.0f, 0.0f, 0.0f),
-		vec4(1.0f, 1.0f, 0.6f, 1.0f),
-		1
-	);
-	scene->AddMaterial(sunMaterial);
-
 	auto skyboxMaterial = new Material(
 		vec4(0.0f, 0.0f, 0.0f, 0.0f),
 		vec4(0.0f, 0.0f, 0.0f, 0.0f),
 		vec4(0.0f, 0.0f, 0.0f, 0.0f),
-		vec4(1.0f, 1.0f, 1.0f, 1.0f),
+		vec4(1.0f, 1.0f, 1.0f, 0.0f),
 		1
 	);
 	scene->AddMaterial(skyboxMaterial);
 
-	auto earthMaterial = new Material(
-		vec4(0.04f, 0.04f, 0.2f, 1.0f),
-		vec4(0.1f, 0.5f, 0.3f, 1.0f),
-		vec4(0.5f, 0.5f, 0.5f, 1.0f),
-		vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		5
-	);
-	scene->AddMaterial(earthMaterial);
-
-	auto moonMaterial = new Material(
-		vec4(0.1f, 0.1f, 0.1f, 1.0f),
-		vec4(0.5f, 0.5f, 0.5f, 1.0f),
-		vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		1
-	);
-	scene->AddMaterial(moonMaterial);
-
-	auto brickMaterial = new Material(
-		vec4(-0.3f, -0.3f, -0.3f, 1.0f),
-		vec4(1.5f, 1.5f, 1.5f, 1.0f),
-		vec4(1.6f, 1.6f, 1.6f, 1.0f),
-		vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		20
-	);
-	scene->AddMaterial(earthMaterial);
-
-	auto metalMaterial = new Material(
-		vec4(0.2f, 0.2f, 0.2f, 1.0f),
-		vec4(0.2f, 0.2f, 0.2f, 1.0f),
+	auto grassMaterial = new Material(
 		vec4(1.0f, 1.0f, 1.0f, 1.0f),
-		vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		10
+		vec4(0.1f, 0.5f, 0.3f, 1.0f),
+		vec4(0.2f, 0.2f, 0.2f, 1.0f),
+		vec4(0.0f, 0.0f, 0.0f, 0.0f),
+		2
 	);
-	scene->AddMaterial(metalMaterial);
+	scene->AddMaterial(grassMaterial);
 
 	// Initiate Textures
-	auto mudBrickTexture = new Texture("Textures/AlternatingMudbrick-ColorMap.png");
-	scene->AddTexture(mudBrickTexture);
-	auto mudBrickNormals = new Texture("Textures/AlternatingMudbrick-NormalMap.png");
-	scene->AddTexture(mudBrickNormals);
+	auto groundTexture = new Texture("Textures/tileset-grass.png");
+	scene->AddTexture(groundTexture);
+	auto groundNormals = new Texture("Textures/tileset-grass-normals.png");
+	scene->AddTexture(groundNormals);
 
-	auto crackedBrickTexture = new Texture("Textures/CrackedAlternatingBricks-ColorMap.png");
-	scene->AddTexture(crackedBrickTexture);
-	auto crackedBrickNormals = new Texture("Textures/CrackedAlternatingBricks-NormalMap.png");
-	scene->AddTexture(crackedBrickNormals);
+	auto billboardTexture = new Texture("Textures/billboards.png");
+	scene->AddTexture(billboardTexture);
+	auto billboardNormalMap = new Texture("Textures/billboards-normals.png");
+	scene->AddTexture(billboardNormalMap);
 
-	auto sandTexture = new Texture("Textures/Sand_1_Diffuse.png");
-	scene->AddTexture(sandTexture);
-	auto sandNormals = new Texture("Textures/Sand_1_Normal.png");
-	scene->AddTexture(sandNormals);
+	auto skyboxTexture = new Texture("Textures/tileset-skybox.png");
+	scene->AddTexture(skyboxTexture);
 
 	auto heightMap = new Texture("Textures/terrain-heightmap.png");
-
-	auto skyboxTexture = new Texture("Textures/skybox_texture.png");
-	//auto heightMap = new Texture("Textures/heightmap.png");
-	//auto heightMap = new Texture("Textures/z.png");
 	scene->AddTexture(heightMap);
+
+	// Initiate TextureSets
+	auto grassSet = new TextureSet();
+	grassSet->Add(groundTexture, 1.0f);
+
+	auto billboardSet = new TextureSet();
+	billboardSet->Add(billboardTexture, 1.0f);
+	auto billboardNormals = new TextureSet();
+	billboardNormals->Add(billboardNormalMap, 1.0f);
+
+	// Cincada principle:
+	// By making each layer repeat in ratios of prime numbers,
+	// the next time they line up perfectly will be far apart.
+	// The set will only exactly repeat each 7*13*31*47 unit.
+	// The technique is so efficient it's hardly even noticable
+	// that each layer is the same texture.
+	// The terrain gets very blue if I use too many stacks. Not sure why.
+	auto grassNormalSet = new TextureSet();
+	grassNormalSet->Add(groundNormals,  23 * 0.05f);
+	grassNormalSet->Add(groundNormals,  13 * 0.05f);
+	grassNormalSet->Add(groundNormals,   7 * 0.05f);
+
+	auto blankTextureSet = new TextureSet();
+
+	auto skyboxSet = new TextureSet();
+	skyboxSet->Add(skyboxTexture, 1.0f);
+
 
 	// Initiate Models
 	auto cube = new Cube();
@@ -132,98 +117,41 @@ Scene* CreateScene(void){
 	auto plane = new Plane(2.0f, 2.0f, 64, 64);
 	scene->AddModel(plane);
 
+	auto grass = new BillBoard(vec2(1.0f), vec2(0.5f, 1.0f), vec2(0.0f), vec2(1.0f) / 8.0f);
+	scene->AddModel(grass);
+
 	auto heightMapPlane = new HeightMappedPlane(2.0f, 2.0f, 5.0f, 64, 64, heightMap);
 
-	// Initiate TextureSets
-	auto brickBlend = new TextureSet();
-	brickBlend->Add(mudBrickTexture, 2.0f);
-	brickBlend->Add(crackedBrickTexture, 2.0f);
-
-	auto blankTextureSet = new TextureSet();
-
-	auto brickBlendNormals = new TextureSet();
-	brickBlendNormals->Add(mudBrickNormals, 2.0f);
-	brickBlendNormals->Add(crackedBrickNormals, 2.0f);
-
-	auto smallBricks = new TextureSet();
-	smallBricks->Add(crackedBrickTexture, 0.25f);
-	auto smallBrickNormals = new TextureSet();
-	smallBrickNormals->Add(crackedBrickNormals, 0.25f);
-
-	auto skyboxSet = new TextureSet();
-	skyboxSet->Add(skyboxTexture, 1.0f);
 
 	// Initiate Nodes
-	//auto ground = new EulerNode(plane, brickMaterial, brickBlend);
-	auto ground = new EulerNode(heightMapPlane, brickMaterial, brickBlend);
+	auto ground = new EulerNode(heightMapPlane, grassMaterial, grassSet);
 	ground->Position = vec3(0.0f, -10.0f, 0.0f);
-	ground->SetNormalMaps(brickBlendNormals);
-	
-	TextureSwitcher* textureSwitcher = new TextureSwitcher(ground);
-	textureSwitcher->AddTextures(mudBrickTexture, mudBrickNormals);
-	textureSwitcher->AddTextures(crackedBrickTexture, crackedBrickNormals);
-	textureSwitcher->AddTextures(sandTexture, sandNormals);
-	scene->AddNode(textureSwitcher);
-	
-	auto orb = new EulerNode(sphere, metalMaterial, blankTextureSet);
-	//auto orb = new EulerNode(skybox, metalMaterial, blankTextureSet);
-	orb->Position = vec3(0.0f, 5.0f, 0.0f);
-	orb->SetNormalMaps(blankTextureSet);
-	orb->Size = 5;
-	ground->AddChild(orb);
-	
-	// Initiate Lights
-	/*
-	PointLight* pointLight = new PointLight();
-	SpotLight* spotLight = new SpotLight();
-	spotLight->Ambient = vec4(0.3f, 0.3f, 0.3f, 1.0);
-	spotLight->Diffuse = vec4(0.5f, 0.5f, 0.3f, 0.0);
-	spotLight->Specular = vec4(1.0f, 1.0f, 1.0f, 1.0);
-	spotLight->Angle = 55.0f;
-	spotLight->Direction = vec3(0.0f, -1.0f, 0.0f);
+	ground->SetNormalMaps(grassNormalSet);
+	scene->AddNode(ground);
 
-	scene->AddLight(pointLight);
-	scene->AddLight(spotLight);
-
-	auto spotLightModelNode = new EulerNode(sphere, sunMaterial, blankTextureSet);
-	spotLightModelNode->Position = vec3(50.0f, 100.0f, 50.0f);
-	spotLightModelNode->SetNormalMaps(blankTextureSet);
-	spotLightModelNode->Position = vec3(spotLight->Position);
-	scene->AddNode(spotLightModelNode);
-
-	auto spotLightMover = new MouseNode(spotLightModelNode, GLUT_LEFT_BUTTON, true);
-	auto spotLightNode = new LightNode(spotLight, spotLightMover);
-	spotLightMover->SetPosition(vec3(5.0f, 5.0f, 5.0f));
-	scene->AddNode(spotLightNode);
-
-	auto pointLightModelNode = new EulerNode(sphere, sunMaterial, blankTextureSet);
-	pointLightModelNode->Position = vec3(50.0f, 50.0f, 50.0f);
-	pointLightModelNode->SetNormalMaps(blankTextureSet);
-	pointLightModelNode->Position = vec3(pointLight->Position);
-	scene->AddNode(pointLightModelNode);
-
-	auto pointLightMover = new MouseNode(pointLightModelNode, GLUT_RIGHT_BUTTON, false);
-	auto pointLightNode = new LightNode(pointLight, pointLightMover);
-	pointLightMover->SetPosition(vec3(0.0f, 5.0f, 0.0f));
-	scene->AddNode(pointLightNode);
-	*/
-	
-	auto sunlight = new DirectionalLight();
-	sunlight->Direction = glm::normalize(vec3(1.0f, -1.0f, 1.0f));
-	scene->AddLight(sunlight);
-	
+	auto grassNode = new EulerNode(grass, grassMaterial, billboardSet);
+	grassNode->SetNormalMaps(billboardNormals);
+	grassNode->Yaw = 4.5f;
+	scene->AddNode(grassNode);
 
 	auto globalControls = new GlobalControls();
 	scene->AddNode(globalControls);
 
 	auto skyboxNode = new EulerNode(skybox, skyboxMaterial, skyboxSet);
 	skyboxNode->SetNormalMaps(blankTextureSet);
-	skyboxNode->Size = 10.0f;
 	scene->SetSkybox(skyboxNode);
 
 	auto flightNode = new FreeFlightNode();
 	auto cameraNode = new CameraNode(flightNode, GlobalWindow.Viewer);
 	scene->AddNode(cameraNode);
+
+
+	// Initiate Lights
+	auto sunlight = new DirectionalLight();
+	sunlight->Direction = glm::normalize(vec3(1.0f, -1.0f, 1.0f));
+	scene->AddLight(sunlight);
+	sunlight->Ambient = vec4(0.3f, 0.35f, 0.4f, 1.0f);
+
 
 	return scene;
 }

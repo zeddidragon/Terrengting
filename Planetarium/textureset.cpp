@@ -74,15 +74,12 @@ void TextureSet::BindNormalMap(Shader* shader, unsigned int offset){
 	GLint countLocation = shader->GetUniformLocation("NormalMapCount");
 
 	glUniform1i(countLocation, _textures.size());
-
 	for (unsigned int i = 0; i < _textures.size(); ++i){
 		glActiveTexture(GL_TEXTURE0 + offset + i);
 		_textures[i]->Bind();
 		glUniform1i(samplersLocation + i, offset + i);
 		glUniform1f(scalesLocation + i, _scales[i]);
 	}
-
-	glActiveTexture(GL_TEXTURE0);
 }
 
 void TextureSet::Unbind(void){
