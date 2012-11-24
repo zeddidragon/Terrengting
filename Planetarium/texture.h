@@ -13,7 +13,7 @@ public:
 
 	void Bind(void);
 	static void Unbind(void);
-	float DataAt(glm::vec2 uv);
+	glm::vec4 PixelAt(glm::vec2 uv);
 	void PrintData(void);
 private:
 	GLuint _glId;

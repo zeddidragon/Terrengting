@@ -1,6 +1,6 @@
 	#version 400  
   
-const int MAX_LIGHTS = 2;  
+const int MAX_LIGHTS = 8;
  
   
 uniform vec4 LightPositions[MAX_LIGHTS]; //Pre-calculated for viewspace  

@@ -165,6 +165,12 @@
     <ClInclude Include="billboard.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
+    <ClInclude Include="heightmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="grass.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -266,11 +272,17 @@
     <ClCompile Include="skybox.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
-    <ClCompile Include="FreeFlightNode.cpp">
-      <Filter>Source Files\Nodes</Filter>
-    </ClCompile>
     <ClCompile Include="billboard.cpp">
       <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="freeflightnode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="heightmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="grass.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

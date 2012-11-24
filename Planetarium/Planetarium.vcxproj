@@ -88,6 +88,8 @@
     <ClInclude Include="eulernode.h" />
     <ClInclude Include="globalcontrols.h" />
     <ClInclude Include="freeflightnode.h" />
+    <ClInclude Include="grass.h" />
+    <ClInclude Include="heightmap.h" />
     <ClInclude Include="heightmappedplane.h" />
     <ClInclude Include="keyboardcontrols.h" />
     <ClInclude Include="light.h" />
@@ -124,8 +126,10 @@
     <ClCompile Include="directionallight.cpp" />
     <ClCompile Include="encapsulationnode.cpp" />
     <ClCompile Include="eulernode.cpp" />
-    <ClCompile Include="FreeFlightNode.cpp" />
+    <ClCompile Include="freeflightnode.cpp" />
     <ClCompile Include="globalcontrols.cpp" />
+    <ClCompile Include="grass.cpp" />
+    <ClCompile Include="heightmap.cpp" />
     <ClCompile Include="heightmappedplane.cpp" />
     <ClCompile Include="keyboardcontrols.cpp" />
     <ClCompile Include="light.cpp" />

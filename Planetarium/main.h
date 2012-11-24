@@ -20,6 +20,7 @@
 #include "textureswitcher.h"
 #include "cameranode.h"
 #include "freeflightnode.h"
+#include "grass.h"
 
 #include "spotlight.h"
 #include "directionallight.h"

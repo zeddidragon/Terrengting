@@ -32,21 +32,21 @@ void FreeFlightNode::Update(float secondsPassed){
 	vec3 movement = vec3(0.0f);
 
 	if (IsKeyHeld(THROTTLE)){
-		movement.z = 1;
-	} else if (IsKeyHeld(REVERSE)){
 		movement.z = -1;
+	} else if (IsKeyHeld(REVERSE)){
+		movement.z = 1;
 	}
 
 	if (IsKeyHeld(RIGHT)){
-		movement.x = -1;
-	} else if (IsKeyHeld(LEFT)){
 		movement.x = 1;
+	} else if (IsKeyHeld(LEFT)){
+		movement.x = -1;
 	}
 
 	if (IsKeyHeld(ASCEND)){
-		movement.y = -1;
-	} else if (IsKeyHeld(DESCEND)){
 		movement.y = 1;
+	} else if (IsKeyHeld(DESCEND)){
+		movement.y = -1;
 	}
 
 	if (movement != vec3(0.0f)){

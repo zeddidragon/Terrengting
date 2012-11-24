@@ -3,8 +3,8 @@
 BillBoard::BillBoard(vec2 dimensions, vec2 origin, vec2 uv1, vec2 uv2){
 	Vertex vertex = {
 		vec4(0.0f, 0.0f, 0.0f, 1.0f),
+		vec3(0.0f, 1.0,	 0.0f),
 		vec3(0.0f, 0.0f, 1.0f),
-		vec3(0.0f, 1.0f, 0.0f),
 		vec3(1.0f, 0.0f, 0.0f),
 		vec2(0.0f, 0.0f)
 	};

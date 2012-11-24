@@ -15,9 +15,9 @@ Texture::Texture(char* filepath){
 	glGenTextures(1, &_glId);
 	glBindTexture(GL_TEXTURE_2D, _glId);
 
-	// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -43,7 +43,7 @@ void Texture::Unbind(void){
 	Window::ExitOnGLError("Unbind the texture");
 }
 
-float Texture::DataAt(vec2 uv){
+vec4 Texture::PixelAt(vec2 uv){
 	float x, y;
 	x = uv.x * _width;
 	y = uv.y * _height;
@@ -57,17 +57,22 @@ float Texture::DataAt(vec2 uv){
 	float xOffset = x - xMin;
 	float yOffset = y - yMin;
 
-	float topLeft = _data[(xMin + yMin * _width) * 4];
-	float topRight = _data[(xMax + yMin * _width) * 4];
-	float bottomLeft = _data[(xMin + yMax * _width) * 4];
-	float bottomRight = _data[(xMax + yMax * _width) * 4];
+	unsigned int iTopLeft = (xMin + yMin * _width) * 4;
+	unsigned int iTopRight = (xMax + yMin * _width) * 4;
+	unsigned int iBottomLeft = (xMin + yMax * _width) * 4;
+	unsigned int iBottomRight = (xMax + yMax * _width) * 4;
 
-	float ret = 0.0f;
+	vec4 vTopLeft = vec4(_data[iTopLeft], _data[iTopLeft + 1], _data[iTopLeft + 2], _data[iTopLeft + 3]);
+	vec4 vTopRight = vec4(_data[iTopRight], _data[iTopRight + 1], _data[iTopRight + 2], _data[iTopRight + 3]);
+	vec4 vBottomLeft = vec4(_data[iBottomLeft], _data[iBottomLeft + 1], _data[iBottomLeft + 2], _data[iBottomLeft + 3]);
+	vec4 vBottomRight = vec4(_data[iBottomRight], _data[iBottomRight + 1], _data[iBottomRight + 2], _data[iBottomRight + 3]);
 
-	ret += topLeft * (xOffset + yOffset);
-	ret += topRight * ((1.0f - xOffset) + yOffset);
-	ret += bottomLeft * (xOffset + (1.0f - yOffset));
-	ret += bottomRight * (1.0f - (xOffset + yOffset));
+	vec4 ret = vec4(0.0f);
+
+	ret += vTopLeft * (xOffset + yOffset);
+	ret += vTopRight * ((1.0f - xOffset) + yOffset);
+	ret += vBottomLeft * (xOffset + (1.0f - yOffset));
+	ret += vBottomRight * (1.0f - (xOffset + yOffset));
 
 	return ret / 256.0f;
 }

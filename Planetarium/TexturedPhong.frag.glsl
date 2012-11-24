@@ -1,8 +1,8 @@
 #version 400 
   
-const int MAX_LIGHTS = 2; 
-const int MAX_TEXTURES = 2; 
-const int MAX_NORMAL_MAPS = 2; 
+const int MAX_LIGHTS = 8;
+const int MAX_TEXTURES = 8;
+const int MAX_NORMAL_MAPS = 8;
  
   
 uniform int LightTypes[MAX_LIGHTS];	//Point is 0, Directional is 1, Spotlight is 2 
@@ -42,21 +42,24 @@ out vec4 fColour;
  
 vec3 normalBlend(void){ 
 	mat3 tangentSpace = mat3( 
-		normalize(fTangent), 
-		normalize(fBitangent), 
-		normalize(fNormal) 
+		normalize(fTangent),
+		normalize(fBitangent),
+		normalize(fNormal)
 	); 
  
-	if (NormalMapCount == 0)   
-		//return normalize(tangentSpace * vec3(0, 0, 1)); 
+	if (NormalMapCount == 0)
+		//return normalize(NormalMatrix * tangentSpace * vec3(0, 0, 1)); 
 		return normalize(NormalMatrix * fNormal); 
    
-	vec4 ret = vec4(0.0, 0.0, 0.0, 0.0);   
-	for (int i = 0; i < NormalMapCount; ++i){   
-		ret += texture(NormalSamplers[i], fUv * NormalMapScales[i]);   
-	}   
-	ret = normalize(ret / NormalMapCount);
-	return normalize(NormalMatrix * tangentSpace * (ret.xyz - 0.5)); 
+	vec3 ret = vec3(0.0);
+	vec4 value;
+	for (int i = 0; i < NormalMapCount; ++i){
+		value = texture(NormalSamplers[i], fUv * NormalMapScales[i]);
+
+		ret += value.xyz - 0.5;
+	}
+
+	return normalize(NormalMatrix * tangentSpace * normalize(ret));
 }   
  
  
@@ -130,6 +133,7 @@ void main(void){
 	float alpha = texel.a;
 	if (alpha < 1.0)
 		discard;
+
 	fColour = (lightBlend() + MaterialEmitted) * textureBlend();
 	fColour.a = alpha;
 }

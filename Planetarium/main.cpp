@@ -53,8 +53,8 @@ Scene* CreateScene(void){
 
 	auto grassMaterial = new Material(
 		vec4(1.0f, 1.0f, 1.0f, 1.0f),
-		vec4(0.1f, 0.5f, 0.3f, 1.0f),
-		vec4(0.2f, 0.2f, 0.2f, 1.0f),
+		vec4(1.0f, 1.0f, 1.0f, 1.0f),
+		vec4(0.3f, 0.3f, 0.3f, 1.0f),
 		vec4(0.0f, 0.0f, 0.0f, 0.0f),
 		2
 	);
@@ -74,8 +74,9 @@ Scene* CreateScene(void){
 	auto skyboxTexture = new Texture("Textures/tileset-skybox.png");
 	scene->AddTexture(skyboxTexture);
 
-	auto heightMap = new Texture("Textures/terrain-heightmap.png");
-	scene->AddTexture(heightMap);
+	auto heightMapTexture = new Texture("Textures/terrain-heightmap.png");
+	auto heightMap = new HeightMap(64, 64, heightMapTexture);
+	delete heightMapTexture;
 
 	// Initiate TextureSets
 	auto grassSet = new TextureSet();
@@ -92,9 +93,9 @@ Scene* CreateScene(void){
 	// The set will only exactly repeat each 7*13*31*47 unit.
 	// The technique is so efficient it's hardly even noticable
 	// that each layer is the same texture.
-	// The terrain gets very blue if I use too many stacks. Not sure why.
 	auto grassNormalSet = new TextureSet();
-	grassNormalSet->Add(groundNormals,  23 * 0.05f);
+	grassNormalSet->Add(groundNormals,  47 * 0.05f);
+	grassNormalSet->Add(groundNormals,  31 * 0.05f);
 	grassNormalSet->Add(groundNormals,  13 * 0.05f);
 	grassNormalSet->Add(groundNormals,   7 * 0.05f);
 
@@ -114,25 +115,30 @@ Scene* CreateScene(void){
 	auto sphere = new Sphere(24);
 	scene->AddModel(sphere);
 	
+	/*
 	auto plane = new Plane(2.0f, 2.0f, 64, 64);
 	scene->AddModel(plane);
+	*/
 
 	auto grass = new BillBoard(vec2(1.0f), vec2(0.5f, 1.0f), vec2(0.0f), vec2(1.0f) / 8.0f);
 	scene->AddModel(grass);
 
-	auto heightMapPlane = new HeightMappedPlane(2.0f, 2.0f, 5.0f, 64, 64, heightMap);
+	auto heightMapPlane = new HeightMappedPlane(2.0f, 2.0f, 4.0f, heightMap);
+
+
+	// Initiate Lights
+	auto sunLight = new DirectionalLight();
+	sunLight->Direction = glm::normalize(vec3(1.0f, -1.0f, 1.0f));
+	sunLight->Diffuse = vec4(0.4f, 0.4f, 0.4f, 1.0f);
+	sunLight->Ambient = vec4(0.3f, 0.35f, 0.4f, 1.0f);
+	scene->AddLight(sunLight);
 
 
 	// Initiate Nodes
 	auto ground = new EulerNode(heightMapPlane, grassMaterial, grassSet);
-	ground->Position = vec3(0.0f, -10.0f, 0.0f);
+	//ground->Position = vec3(0.0f, -10.0f, 0.0f);
 	ground->SetNormalMaps(grassNormalSet);
 	scene->AddNode(ground);
-
-	auto grassNode = new EulerNode(grass, grassMaterial, billboardSet);
-	grassNode->SetNormalMaps(billboardNormals);
-	grassNode->Yaw = 4.5f;
-	scene->AddNode(grassNode);
 
 	auto globalControls = new GlobalControls();
 	scene->AddNode(globalControls);
@@ -143,15 +149,12 @@ Scene* CreateScene(void){
 
 	auto flightNode = new FreeFlightNode();
 	auto cameraNode = new CameraNode(flightNode, GlobalWindow.Viewer);
+	cameraNode->SetPosition(vec3(0.0f, 10.0f, 0.0f));
 	scene->AddNode(cameraNode);
 
-
-	// Initiate Lights
-	auto sunlight = new DirectionalLight();
-	sunlight->Direction = glm::normalize(vec3(1.0f, -1.0f, 1.0f));
-	scene->AddLight(sunlight);
-	sunlight->Ambient = vec4(0.3f, 0.35f, 0.4f, 1.0f);
-
+	auto grassCover = new Grass(grass, grassMaterial, billboardSet, 2.0f, 2.0f, 4.0f, heightMap, 512);
+	grassCover->SetNormalMaps(billboardNormals);
+	scene->AddNode(grassCover);
 
 	return scene;
 }
