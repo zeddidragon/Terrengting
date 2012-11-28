@@ -16,7 +16,6 @@ void Scene::Render(Shader* shader, const mat4& viewMatrix){
 	mat4 orientationMatrix = mat4(mat3(viewMatrix));
 	orientationMatrix[3][3] = 1.0f;
 
-	glDisable(GL_DEPTH_TEST);
 	_skybox->Render(shader, &_lights, orientationMatrix, mat4(1.0f));
 	glEnable(GL_DEPTH_TEST);
 
@@ -24,6 +23,9 @@ void Scene::Render(Shader* shader, const mat4& viewMatrix){
 	for (unsigned int i = 0; i < _nodes.size(); ++i){
 		_nodes.at(i)->Render(shader, &_lights, viewMatrix, mat4(1.0f));
 	}
+
+	glDisable(GL_DEPTH_TEST);
+	_glare->Render(shader, &_lights, orientationMatrix, mat4(1.0f));
 }
 
 int Scene::AddLight(Light* light){ //Return index in vector of material
@@ -77,4 +79,21 @@ void Scene::SetSkybox(Node* node){
 
 Node* Scene::GetSkybox(void){
 	return _skybox;
+}
+
+void Scene::SetGlare(Node* node){
+	_glare = node;
+}
+
+Node* Scene::GetGlare(void){
+	return _glare;
+}
+
+void Scene::SetWater(Node* node, Shader* shader){
+	_glare = node;
+	_waterShader = shader;
+}
+
+Node* Scene::GetWater(void){
+	return _water;
 }

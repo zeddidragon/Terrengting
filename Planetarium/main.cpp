@@ -60,11 +60,23 @@ Scene* CreateScene(void){
 	);
 	scene->AddMaterial(grassMaterial);
 
+	auto waterMaterial = new Material(
+		vec4(1.0f, 1.0f, 1.2f, 1.0f),
+		vec4(1.0f, 1.0f, 1.2f, 1.0f),
+		vec4(0.3f, 0.3f, 0.5f, 1.0f),
+		vec4(0.0f, 0.0f, 0.0f, 0.0f),
+		20
+	);
+	scene->AddMaterial(waterMaterial);
+
 	// Initiate Textures
 	auto groundTexture = new Texture("Textures/tileset-grass.png");
 	scene->AddTexture(groundTexture);
 	auto groundNormals = new Texture("Textures/tileset-grass-normals.png");
 	scene->AddTexture(groundNormals);
+
+	auto waterTexture = new Texture("Textures/tileset-water.png");
+	scene->AddTexture(waterTexture);
 
 	auto billboardTexture = new Texture("Textures/billboards.png");
 	scene->AddTexture(billboardTexture);
@@ -79,8 +91,6 @@ Scene* CreateScene(void){
 	delete heightMapTexture;
 
 	// Initiate TextureSets
-	auto grassSet = new TextureSet();
-	grassSet->Add(groundTexture, 1.0f);
 
 	auto billboardSet = new TextureSet();
 	billboardSet->Add(billboardTexture, 1.0f);
@@ -93,11 +103,20 @@ Scene* CreateScene(void){
 	// The set will only exactly repeat each 7*13*31*47 unit.
 	// The technique is so efficient it's hardly even noticable
 	// that each layer is the same texture.
+	auto grassSet = new TextureSet();
+	grassSet->Add(groundTexture, 47 * 0.05f);
+	grassSet->Add(groundTexture, 31 * 0.05f);
+	grassSet->Add(groundTexture, 13 * 0.05f);
+	grassSet->Add(groundTexture,  7 * 0.05f);
+
 	auto grassNormalSet = new TextureSet();
 	grassNormalSet->Add(groundNormals,  47 * 0.05f);
 	grassNormalSet->Add(groundNormals,  31 * 0.05f);
 	grassNormalSet->Add(groundNormals,  13 * 0.05f);
 	grassNormalSet->Add(groundNormals,   7 * 0.05f);
+
+	auto waterSet = new TextureSet();
+	waterSet->Add(waterTexture, 1.0f);
 
 	auto blankTextureSet = new TextureSet();
 
@@ -110,15 +129,13 @@ Scene* CreateScene(void){
 	scene->AddModel(cube);
 
 	auto skybox = new Skybox();
-	scene->AddModel(skybox);
+	scene->AddModel(skybox); 
 
 	auto sphere = new Sphere(24);
 	scene->AddModel(sphere);
 	
-	/*
 	auto plane = new Plane(2.0f, 2.0f, 64, 64);
 	scene->AddModel(plane);
-	*/
 
 	auto grass = new BillBoard(vec2(1.0f), vec2(0.5f, 1.0f), vec2(0.0f), vec2(1.0f) / 8.0f);
 	scene->AddModel(grass);
@@ -155,6 +172,13 @@ Scene* CreateScene(void){
 	auto grassCover = new Grass(grass, grassMaterial, billboardSet, 2.0f, 2.0f, 4.0f, heightMap, 512);
 	grassCover->SetNormalMaps(billboardNormals);
 	scene->AddNode(grassCover);
+
+	auto waterNode = new EulerNode(plane, waterMaterial, waterSet);
+	waterNode->SetPosition(vec3(0.0f, 3.0f, 0.0f));
+	scene->SetWater(waterNode);
+
+	auto glareNode = new GlareNode(vec3(1.0f, -1.0f, 1.0f), skybox, skyboxMaterial, blankTextureSet);
+	scene->SetGlare(glareNode);
 
 	return scene;
 }

@@ -23,6 +23,10 @@ public:
 	Node* GetNode(int index);
 	void SetSkybox(Node* node);
 	Node* GetSkybox(void);
+	void SetGlare(Node* node);
+	Node* GetGlare(void);
+	void SetWater(Node* node, Shader* shader);
+	Node* GetWater(void);
 
 private:
 	std::vector<Material*> _materials;
@@ -31,6 +35,9 @@ private:
 	std::vector<Node*> _nodes;
 	std::vector<Light*> _lights;
 	Node* _skybox;
+	Node* _glare;
+	Node* _water;
+	Shader* _waterShader;
 };
 
 #endif

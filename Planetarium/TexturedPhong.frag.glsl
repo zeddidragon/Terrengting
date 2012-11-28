@@ -3,7 +3,8 @@
 const int MAX_LIGHTS = 8;
 const int MAX_TEXTURES = 8;
 const int MAX_NORMAL_MAPS = 8;
- 
+
+uniform float Alpha = 1.0;
   
 uniform int LightTypes[MAX_LIGHTS];	//Point is 0, Directional is 1, Spotlight is 2 
 uniform vec3 LightDirections[MAX_LIGHTS]; 
@@ -135,5 +136,5 @@ void main(void){
 		discard;
 
 	fColour = (lightBlend() + MaterialEmitted) * textureBlend();
-	fColour.a = alpha;
+	fColour.a = alpha * Alpha;
 }

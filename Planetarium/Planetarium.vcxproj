@@ -86,6 +86,8 @@
     <ClInclude Include="cube.h" />
     <ClInclude Include="encapsulationnode.h" />
     <ClInclude Include="eulernode.h" />
+    <ClInclude Include="framebuffer.h" />
+    <ClInclude Include="glarenode.h" />
     <ClInclude Include="globalcontrols.h" />
     <ClInclude Include="freeflightnode.h" />
     <ClInclude Include="grass.h" />
@@ -126,7 +128,9 @@
     <ClCompile Include="directionallight.cpp" />
     <ClCompile Include="encapsulationnode.cpp" />
     <ClCompile Include="eulernode.cpp" />
+    <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="freeflightnode.cpp" />
+    <ClCompile Include="glarenode.cpp" />
     <ClCompile Include="globalcontrols.cpp" />
     <ClCompile Include="grass.cpp" />
     <ClCompile Include="heightmap.cpp" />
@@ -160,6 +164,7 @@
   <ItemGroup>
     <None Include="TexturedPhong.frag.glsl" />
     <None Include="TexturedPhong.vert.glsl" />
+    <None Include="waves.vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
