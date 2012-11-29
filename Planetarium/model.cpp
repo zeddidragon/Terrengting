@@ -51,6 +51,8 @@ void Model::GenerateVao(const Vertex* vertices, const GLuint* indices, unsigned 
 	size += sizeof(vertices[0].Bitangent);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)size);
 	size += sizeof(vertices[0].UvCoordinate);
+	glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)size);
+	size += sizeof(vertices[0].WindStrength);
 	Window::ExitOnGLError("set the VAO attributes");
 
 	glEnableVertexAttribArray(0);	//Vertex shader vPosition
@@ -58,6 +60,7 @@ void Model::GenerateVao(const Vertex* vertices, const GLuint* indices, unsigned 
 	glEnableVertexAttribArray(2);	//Vertex shader vUv
 	glEnableVertexAttribArray(3);	//Vertex shader vTangent
 	glEnableVertexAttribArray(4);	//Vertex shader vBitangent
+	glEnableVertexAttribArray(5);	//Vertex shader vWind
 	Window::ExitOnGLError("enable vertex attributes");
 
 	glGenBuffers(1, &_iboId);	//Generer buffer for IBO

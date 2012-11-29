@@ -81,6 +81,7 @@ void Plane::GenerateNormals(Vertex* vertices, unsigned int width, unsigned int h
 			vertices[columnOffset + i].Normal = vec3(0.0f, 1.0f, 0.0f);
 			vertices[columnOffset + i].Tangent = vec3(1.0f, 0.0f, 0.0f);
 			vertices[columnOffset + i].Bitangent = vec3(0.0f, 0.0f, -1.0f);
+			vertices[columnOffset + i].WindStrength = 0.6f;
 		}
 		columnOffset += width;
 	}

@@ -1,6 +1,8 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
+#include <time.h>
+
 #include "window.h"
 #include "scene.h"
 #include "sphericalnode.h"
@@ -8,7 +10,7 @@
 #include "cube.h"
 #include "constants.h"
 
-
+float currentTime = 0.0f;
 
 Window::~Window(void){
 	delete _shader;
@@ -37,7 +39,8 @@ void Window::InitializeCamera(void){
 
 
 void Window::InitializeShader(void){
-	_shader = new Shader("TexturedPhong.frag.glsl", "TexturedPhong.vert.glsl");
+	//_shader = new Shader("TexturedPhong.frag.glsl", "TexturedPhong.vert.glsl");
+	_shader = new Shader("TexturedPhong.frag.glsl", "waves.vert.glsl");
 	_shader->Link();
 	Window::ExitOnGLError("link shader");
 }
@@ -121,6 +124,8 @@ void Window::Resize(int width, int height){
 void Window::Render(void){
 	++_frameCount;
 
+	currentTime += 1.0f/60;
+
 	if (MainScene != 0)
 		MainScene->Update(1.0f/60);
 	//Viewer->Update();
@@ -133,6 +138,9 @@ void Window::Render(void){
 
 	GLint projectionLocation = _shader->GetUniformLocation("ProjectionMatrix");
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(Viewer->GetProjectionMatrix()));
+
+	GLint timeLocation = _shader->GetUniformLocation("Time");
+	glUniform1f(timeLocation, currentTime);
 
 	mat4 viewMatrix = Viewer->GetViewMatrix();
 

@@ -172,10 +172,14 @@ Scene* CreateScene(void){
 	auto grassCover = new Grass(grass, grassMaterial, billboardSet, 2.0f, 2.0f, 4.0f, heightMap, 512);
 	grassCover->SetNormalMaps(billboardNormals);
 	scene->AddNode(grassCover);
-
+	
+	Shader* waterShader = new Shader("TexturedPhong.frag.glsl", "waves.vert.glsl");
+	waterShader->Link();
+	
 	auto waterNode = new EulerNode(plane, waterMaterial, waterSet);
 	waterNode->SetPosition(vec3(0.0f, 3.0f, 0.0f));
-	scene->SetWater(waterNode);
+	//scene->SetWater(waterNode, waterShader);
+	scene->AddNode(waterNode);
 
 	auto glareNode = new GlareNode(vec3(1.0f, -1.0f, 1.0f), skybox, skyboxMaterial, blankTextureSet);
 	scene->SetGlare(glareNode);

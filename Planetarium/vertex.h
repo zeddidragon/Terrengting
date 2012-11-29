@@ -9,6 +9,7 @@ struct Vertex{
 	glm::vec3 Tangent;
 	glm::vec3 Bitangent;
 	glm::vec2 UvCoordinate;
+	float WindStrength;
 };
 
 #endif

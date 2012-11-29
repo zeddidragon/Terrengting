@@ -42,6 +42,7 @@ void HeightMappedPlane::GenerateVertices(Vertex* vertices, float quadWidth, floa
 			y = maxHeight * heightMap->Map[i + j * width];
 			vertices[columnOffset + i].Position = vec4(x, y, z, 1.0f);
 			vertices[columnOffset + i].Normal = vec3(0.0f, 1.0f, 0.0f);
+			vertices[columnOffset + i].WindStrength = 0.0f;
 			x += quadWidth;
 		}
 		z += quadHeight;

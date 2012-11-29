@@ -60,19 +60,21 @@ void Cube::GenerateQuadVertices(Vertex* vertices, unsigned int& index, vec3 norm
 		{
 			vec4(upperLeft * 0.5f, 1.0f),
 			normal, tangent, bitangent,
-			uvUpperLeft
+			uvUpperLeft, 0.0f
 		} , {
 			vec4(upperRight * 0.5f, 1.0f),
 			normal, tangent, bitangent,
-			vec2(uvLowerRight.x, uvUpperLeft.y)
+			vec2(uvLowerRight.x, uvUpperLeft.y),
+			0.0f
 		}, {
 			vec4(lowerLeft * 0.5f, 1.0f),
 			normal, tangent, bitangent,
-			vec2(uvUpperLeft.x, uvLowerRight.y)
+			vec2(uvUpperLeft.x, uvLowerRight.y),
+			0.0f
 		}, {
 			vec4(lowerRight * 0.5f, 1.0f),
 			normal, tangent, bitangent,
-			uvLowerRight
+			uvLowerRight, 0.0f
 		}
 	};
 

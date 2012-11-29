@@ -1,8 +1,9 @@
 #version 400  
   
 const int MAX_LIGHTS = 8;
+const float PI = 3.14159265358979323846264;
 
-uniform float time; 
+uniform float Time; 
   
 uniform vec4 LightPositions[MAX_LIGHTS]; //Pre-calculated for viewspace  
 uniform vec3 LightDirections[MAX_LIGHTS]; 
@@ -18,7 +19,8 @@ layout(location = 0) in vec4 vPosition;
 layout(location = 1) in vec3 vNormal; 
 layout(location = 2) in vec2 vUv;  
 layout(location = 3) in vec3 vTangent; 
-layout(location = 4) in vec3 vBitangent; 
+layout(location = 4) in vec3 vBitangent;
+layout(location = 5) in float vWind;
   
  
 out vec3 fNormal; 
@@ -54,15 +56,18 @@ void calculateLightVectors(void){
   
 void main(void){  
 	fPosition = (ModelView * vPosition).xyz;  
-	fNormal = normalize(vNormal) + sin(time + vPosition.x + vPosition.y) * 0.25;
+	fNormal = normalize(vNormal);// - sin(Time + vPosition.x + 0.5 * vPosition.z) * 0.25;
+	fNormal.x += sin(Time + vPosition.x) * vWind;
+	fNormal.z += sin(Time + vPosition.z) * vWind;
+	fNormal.y += sin(Time + vPosition.x + vPosition.z) * vWind * 0.25;
+	fNormal = normalize(fNormal);
 	fTangent = normalize(vec3(-fNormal.y, fNormal.x, 0)); 
 	fBitangent = cross(fNormal, fTangent); 
  
-	calculateLightVectors();  
+	calculateLightVectors();
   
 	fUv = vUv;  
 	  
-	fPosition.y += sin(time + vPosition.x + vPosition.y) * 0.25;
-
 	gl_Position = ProjectionMatrix * ModelView * vPosition;
+	gl_Position.y += sin(Time + vPosition.x + vPosition.z) * vWind;
 }	

@@ -103,6 +103,7 @@ void Sphere::VertexRow(float latitude, int slices, Vertex* vertices, int& index)
 		vertices[index].Tangent = vec3(Point(latitude, currentAngle + 90));
 		vertices[index].Bitangent = glm::cross(vertices[index].Normal, vertices[index].Tangent);
 		vertices[index].UvCoordinate = vec2(currentU, position.y + 0.5f);
+		vertices[index].WindStrength = 0.0f;
 
 		currentAngle += angleStep;
 		currentU += uStep;

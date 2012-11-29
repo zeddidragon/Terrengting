@@ -18,7 +18,10 @@ void Scene::Render(Shader* shader, const mat4& viewMatrix){
 
 	_skybox->Render(shader, &_lights, orientationMatrix, mat4(1.0f));
 	glEnable(GL_DEPTH_TEST);
-
+	/*
+	_waterShader->Use();
+	_water->Render(_waterShader, &_lights, orientationMatrix, mat4(1.0f));
+	*/
 	glUniform1i(lightCountLocation, _lights.size());
 	for (unsigned int i = 0; i < _nodes.size(); ++i){
 		_nodes.at(i)->Render(shader, &_lights, viewMatrix, mat4(1.0f));
